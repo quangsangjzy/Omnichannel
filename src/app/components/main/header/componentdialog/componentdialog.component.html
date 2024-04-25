@@ -1,0 +1,22 @@
+<div class="p-6 flex items-center flex-col">
+  <div mat-dialog-content>
+    <p class="text-lg">{{ data.message }}</p>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      mat-button
+      color="warn"
+      (click)="onConfirm()"
+      class="rounded-lg bg-primary border-none mr-3 w-28 h-8 fw-bold text-white"
+    >
+      Đăng xuất
+    </button>
+    <button
+      mat-button
+      (click)="onCancel()"
+      class="ml-3 rounded-lg border-2 w-28 h-8 fw-bold bg-slate-300"
+    >
+      Hủy
+    </button>
+  </div>
+</div>

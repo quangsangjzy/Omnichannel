@@ -1,0 +1,83 @@
+<div class="h-screen flex justify-center items-center flex-col relative">
+  <div class="flex items-center w-5/12">
+    <img class="min-w-24 pr-4" src="assets/images/logo.png" alt="" />
+    <p class="fw-bold text-2xl">OMNICHANNEL MESSAGING</p>
+  </div>
+  <form
+    [formGroup]="loginForm"
+    (submit)="login(user_name.value, password.value)"
+    class="flex flex-col w-1/4"
+  >
+    <div class="mb-4">
+      <input
+        type="text"
+        #user_name
+        class="p-2 px-3 border-2 bg-white rounded-lg w-full"
+        placeholder="Username"
+        formControlName="username"
+        [ngClass]="{
+          'invalid-border':
+            (loginForm.get('username')?.invalid &&
+              loginForm.get('username')?.dirty) ||
+            loginStatus === false
+        }"
+      />
+      <div
+        *ngIf="
+          loginForm['controls']['username'].dirty &&
+          loginForm['controls']['username'].errors
+        "
+      >
+        <small
+          *ngIf="loginForm['controls']['username'].errors['required']"
+          class="text-red-600 text-xs"
+          >Username không được để trống</small
+        >
+      </div>
+    </div>
+    <div class="mb-4">
+      <input
+        type="password"
+        #password
+        class="p-2 px-3 border-2 bg-white rounded-lg w-full"
+        placeholder="Mật khẩu"
+        formControlName="password"
+        [ngClass]="{
+          'invalid-border':
+            (loginForm.get('password')?.invalid &&
+              loginForm.get('password')?.dirty) ||
+            loginStatus === false
+        }"
+      />
+      <div
+        *ngIf="
+          loginForm['controls']['password'].dirty &&
+          loginForm['controls']['password'].errors
+        "
+      >
+        <small
+          *ngIf="loginForm['controls']['password'].errors['required']"
+          class="text-red-600 text-xs"
+          >Mật khẩu không được để trống</small
+        >
+        <small
+          *ngIf="loginForm['controls']['password'].errors['minlength']"
+          class="text-red-600"
+          class="text-red-600 text-xs"
+          >Mật khẩu trên 6 ký tự</small
+        >
+      </div>
+      <div>
+        <small *ngIf="loginStatus === false" class="text-red-600 text-xs"
+          >Tài khoản hoặc mật khẩu không đúng!</small
+        >
+      </div>
+    </div>
+    <button
+      class="p-2 px-3border-2 rounded-lg fw-bold text-white text-sm"
+      type="submit"
+    >
+      ĐĂNG NHẬP
+    </button>
+  </form>
+</div>
