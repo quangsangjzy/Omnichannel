@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FacebookService } from './service/facebookservice.service';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AuthInterceptor } from './components/auth/auth.interceptor';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @Component({
   selector: 'app-root',
@@ -19,9 +19,10 @@ import { AuthInterceptor } from './components/auth/auth.interceptor';
     LoginComponent,
     MainComponent,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    NgxSpinnerModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [],
 })
 export class AppComponent {
   title = 'Omnichanel';

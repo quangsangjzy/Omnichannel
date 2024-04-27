@@ -8,7 +8,9 @@
   <div
     class="profile d-flex justify-content-between align-items-center relative"
   >
-    <p class="fs-6 fw-bold">User A</p>
+    <p class="fs-6 fw-bold">
+      {{ userInfo?.fullName }}
+    </p>
     <div class="showSubNav">
       <img
         src="assets/images/avt_user.png"
@@ -17,7 +19,7 @@
       />
       <ul class="rounded-xl border-2 p-2 absolute subnav">
         <li class="p-2 cursor-pointer">
-          <a class="text-sm" routerLink="/"
+          <a class="text-sm" routerLink="/" (click)="openUpdatePassword()"
             ><i class="fa-solid fa-arrows-rotate"></i> Đổi mật khẩu</a
           >
         </li>
@@ -34,4 +36,3 @@
     </div>
   </div>
 </div>
-
