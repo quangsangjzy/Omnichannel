@@ -1,4 +1,11 @@
-import { Component, HostListener } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -6,6 +13,7 @@ import { NavigationStart, Router } from '@angular/router';
 import { LoginserviceService } from '../loginservice.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { UserService } from '../../../service/user.service';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +23,12 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  @ViewChild('loginPageForm') loginPageForm!: ElementRef;
+  @Output() LoginEvent = new EventEmitter<{
+    nickname: string;
+    fullname: string;
+  }>();
+  //
   loginForm: FormGroup;
   loginStatus: boolean | null = null;
   isLoading = false;
@@ -23,7 +37,8 @@ export class LoginComponent {
     private fb: FormBuilder,
     private router: Router,
     private loginService: LoginserviceService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private userService: UserService
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -33,6 +48,14 @@ export class LoginComponent {
     this.loginForm.valueChanges.subscribe(() => {
       this.loginStatus = true;
     });
+  }
+
+  ngOnInit() {}
+
+  onSubmit(nickName: string, fullName: string): void {
+    this.userService.setNickname(nickName);
+    this.userService.setFullname(fullName);
+    this.router.navigate(['/home']);
   }
 
   login(user_name: string, password: string): void {

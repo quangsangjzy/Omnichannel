@@ -12,11 +12,11 @@ import { AuthService } from '../auth/authservice.service';
   imports: [SidebarComponent, HeaderComponent, ChatComponent],
 })
 export class MainComponent implements OnInit {
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     window.addEventListener('beforeunload', function () {
-      localStorage.removeItem('token');
+      // localStorage.removeItem('token');
     });
   }
   
@@ -25,7 +25,7 @@ export class MainComponent implements OnInit {
     window.addEventListener('popstate', function(){
         const token = localStorage.getItem('token')
         if(token){
-            localStorage.removeItem('token')
+            // localStorage.removeItem('token')
         }
     })
   }

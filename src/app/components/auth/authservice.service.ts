@@ -13,7 +13,7 @@ export class AuthService {
   }
 
   removeToken(): void {
-    localStorage.removeItem(this.token);
+    // localStorage.removeItem(this.token);
   }
 
   // iểm tra xem người dùng đã đăng nhập hay chưa
@@ -21,4 +21,6 @@ export class AuthService {
     const token = localStorage.getItem('token');
     return !!token;
   }
+
+  
 }

@@ -11,6 +11,6 @@ export const routes: Routes = [
     {
         path:'home',
         component: MainComponent,
-        canActivate: [authGuard]
+        // canActivate: [authGuard]
     },
 ];

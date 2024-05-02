@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import Validation from '../../../auth/validation';
 import { HttpClient } from '@angular/common/http';
+import { LoginserviceService } from '../../../auth/loginservice.service';
 
 @Component({
   selector: 'app-update-password',
@@ -24,8 +25,8 @@ export class UpdatePasswordComponent {
   submitted = false;
   loginForm!: FormGroup;
   loginStatus: boolean | null = null;
-  currentPassword: string = '';
-  newPassword: string = '';
+
+  isOldPasswordCorrect: boolean | null = null;
 
   form: FormGroup = new FormGroup({
     currentPassword: new FormControl(''),
@@ -36,7 +37,8 @@ export class UpdatePasswordComponent {
     public dialogRef: MatDialogRef<HeaderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    private service: LoginserviceService
   ) {}
 
   ngOnInit(): void {
@@ -70,31 +72,39 @@ export class UpdatePasswordComponent {
       return;
     }
     console.log(JSON.stringify(this.form.value, null, 2));
+    this.checkPassword();
   }
 
   onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  // updatePassword(currentPassword: string) {
-  //   const token = localStorage.getItem('token');
-  //   this.http
-  //     .put(
-  //       'http://localhost:8080/api/v1/users/updatePassword',
-  //       { currentPassword },
-  //       {
-  //         headers: {
-  //           Authorization: 'Bearer ' + token,
-  //         },
-  //       }
-  //     )
-  //     .subscribe(
-  //       (response: any) => {
-  //         console.log('Thành công',response);
-  //       },
-  //       (error) => {
-  //         console.log(error)
-  //       }
-  //     );
-  // }
+  checkPassword(): void {
+    const token = localStorage.getItem('token');
+    const {currentPassword, password, confirmPassword} = this.form.value
+
+    const payload = {currentPassword, password}
+    this.http
+      .put<any>(
+        'http://localhost:8080/api/v1/users/updatePassword',
+        {payload},
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        }
+      )
+      .subscribe(
+        result => {
+          if(result.error){
+            console.log(result.error.message)
+          }else{
+            console.log("Doi mat khau thanh cong")
+          }
+        },
+        (error) => {
+          console.log('Doi mat khau khong thanh cong', error);
+        }
+      );
+  }
 }

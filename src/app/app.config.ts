@@ -12,9 +12,11 @@ import {
 import { importProvidersFrom } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { customInterceptor } from './custom.interceptor';
+import { UserService } from './service/user.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    UserService,
     provideHttpClient(withFetch()),
     provideRouter(routes),
     provideClientHydration(),

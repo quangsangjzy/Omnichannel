@@ -5,10 +5,12 @@
   </div>
   <form
     [formGroup]="loginForm"
-    (submit)="login(user_name.value, password.value)"
+    (submit)="onSubmit(nickName.value, fullName.value)"
     class="flex flex-col w-1/4"
+    id="usernameForm"
+    #loginPageForm
   >
-    <div class="mb-4">
+    <div class="mb-4 hidden">
       <input
         type="text"
         #user_name
@@ -35,7 +37,7 @@
         >
       </div>
     </div>
-    <div class="mb-4">
+    <div class="mb-4 hidden">
       <input
         type="password"
         #password
@@ -73,6 +75,28 @@
         >
       </div>
     </div>
+
+    <!-- --------------- -->
+    <!-- Demo login -->
+    <input
+      type="text"
+      class="p-2 px-3 border-2 bg-white rounded-lg w-full mb-4"
+      placeholder="nickname"
+      id="nickname"
+      name="nickname"
+      #nickName
+      
+    />
+    <input
+      type="text"
+      class="p-2 px-3 border-2 bg-white rounded-lg w-full mb-4"
+      placeholder="fullname"
+      id="fullname"
+      name="realname"
+      #fullName
+    />
+
+    <!-- end -->
     <button
       class="p-2 px-3border-2 rounded-lg fw-bold text-white text-sm"
       type="submit"
