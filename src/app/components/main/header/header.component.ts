@@ -40,8 +40,8 @@ export class HeaderComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.logout();
-        this.router.navigate(['/login']);
+        localStorage.removeItem('user');
+        this.router.navigate(['.']);
       } else {
         return;
       }

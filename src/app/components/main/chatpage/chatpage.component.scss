@@ -1,0 +1,97 @@
+// *{
+//   margin: 0;
+// }
+.container-chat {
+  height: 90%;
+}
+
+.row {
+  height: 100%;
+}
+
+.img-avatar {
+  height: 50px;
+  width: 50px;
+}
+
+.main-flex-grow {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.scrollarea {
+  overflow-y: scroll;
+}
+
+.scrollarea::-webkit-scrollbar {
+  display: none;
+}
+
+.fs-7 {
+  font-size: 0.65rem;
+}
+
+.opacity-hover {
+  opacity: 0;
+}
+
+.opacity-hover:hover {
+  opacity: 1;
+}
+
+.mw-75 {
+  max-width: 75%;
+}
+
+.word-break {
+  word-wrap: break-word;
+}
+
+.word-break-all {
+  word-break: break-all;
+}
+
+.circular-letter {
+  width: 40px;
+  height: 40px;
+  background-color: rgb(0, 140, 235);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 18px;
+}
+
+.bg-primary-1 {
+  background-color: rgb(0, 140, 235);
+}
+
+p,
+h5 {
+  margin-bottom: 0;
+}
+
+.h-chat {
+  height: 10%;
+}
+
+.headerchat {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.pageName {
+  background-color: #c3ebc7;
+  width: fit-content;
+  padding: 0 4px;
+}
+
+.boxSearch {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  top: 100%;
+  left: 0;
+  right: 0;
+}

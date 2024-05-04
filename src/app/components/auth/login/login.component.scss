@@ -1,15 +1,12 @@
-button{
-    background: #4962A4;
+.form-signin {
+  max-width: 700px;
+  padding: 1rem;
 }
 
-input{
-    outline: none;
+.img-cover {
+  width: 100%;
 }
 
-.invalid-border{
-    border: 2px solid red;
-}
-
-.hidden{
-    display: none;
+.bg-login {
+  background-color: rgba(235, 235, 235, 0.8);
 }

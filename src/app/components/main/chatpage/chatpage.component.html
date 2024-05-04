@@ -1,0 +1,200 @@
+<div class="container-chat">
+  <!-- Row for dividing the content into two columns -->
+  <div class="row m-0">
+    <!-- Danh sach nguoi dung -->
+    <div
+      [ngClass]="
+        selectedConversationId == -1
+          ? 'd-block d-sm-block'
+          : 'd-none d-sm-block'
+      "
+      class="col-lg-3 h-full p-0 border-none"
+    >
+      <div class="h-chat flex items-center px-2">
+        <div
+          class="flex items-center border-2 rounded-full p-2 w-full relative"
+          #searchInput
+        >
+          <i class="bx bx-search px-2 text-base"></i>
+          <input
+            type="text"
+            placeholder="Tìm kiếm"
+            class="outline-none w-full"
+            (focus)="showSearchBox()"
+          />
+          <div
+            *ngIf="isSearchBoxVisible"
+            (click)="stopPropagation($event)"
+            class="min-h-10 w-full bg-white boxSearch absolute rounded-lg border-2 mt-2"
+          >
+            <div class="min-h-10 flex items-center justify-center">
+              <p class="text-sm">Nhập từ khóa bạn muốn tìm kiếm</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex flex-column h-full">
+        <!-- Users list section -->
+        <div class="scrollarea">
+          <div
+            *ngFor="let c of userConversations"
+            (click)="onUserSelected(c.otherUserId, c.otherUserName)"
+            class="p-2 mt-2 cursor-pointer bg-secondary-subtle rounded flex items-center"
+          >
+            <img
+              src="{{ c.otherUserImage }}"
+              class="w-10 h-10 rounded-full"
+              alt=""
+            />
+            <div class="ml-4">
+              <p class="flex-grow text-base font-bold">{{ c.otherUserName }}</p>
+              <p class="my-1">{{ c.lastMessage }}</p>
+              <p class="text-xs pageName">{{ c.pageName }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end -->
+
+    <!-- Chi tiet tin nhan -->
+    <div
+      [ngClass]="
+        selectedConversationId == -1
+          ? 'd-none d-sm-block'
+          : 'd-block d-sm-block'
+      "
+      class="col-sm-7 col-md-8 col-lg-9 bg-body-tertiary p-0 border-start border-secondary-subtle h-full"
+    >
+      <!-- Hop thoai mo dau -->
+      <div
+        *ngIf="selectedConversationId == -1"
+        class="d-flex justify-content-center align-items-center h-full"
+      >
+        <div class="text-center flex items-center h-full">
+          <i class="bx bxs-message-rounded mr-2 text-3xl"></i>
+          <p class="text-xl">
+            Vui lòng chọn 1 hộp thoại trong danh sách bên trái
+          </p>
+        </div>
+      </div>
+
+      <!-- Conversation display -->
+      <div
+        *ngIf="selectedConversationId != -1"
+        class="d-flex flex-column h-full"
+      >
+        <!-- header chat -->
+        <div
+          class="d-flex justify-content-between bg-white h-chat px-2 headerchat"
+        >
+          <div class="d-flex align-items-center justify-content-center">
+            <button (click)="onCloseChat()" class="btn py-0 me-1 d-sm-none">
+              <i class="bi bi-list fs-4"></i>
+            </button>
+            <h4 class="m-0">{{ selectedConversationReceiverName }}</h4>
+          </div>
+          <!-- <button
+            class="btn btn-light"
+            data-bs-toggle="modal"
+            data-bs-target="#deleteChatModal"
+          >
+            <i class="bi bi-trash-fill text-danger"></i> Delete Chat
+          </button> -->
+        </div>
+        <!-- end -->
+
+        <!-- Tin nhan nguoi dung -->
+        <div class="main-flex-grow scrollarea p-2 mb-3">
+          <div *ngFor="let m of selectedConversation" class="mt-2">
+            <div
+              class="text-white rounded py-1 px-2 mw-75"
+              [ngClass]="
+                currentUser.id == m.senderId
+                  ? 'float-end bg-primary-1 text-white'
+                  : 'float-start bg-secondary-subtle text-dark'
+              "
+            >
+              <div
+                class="fs-6 word-break"
+                [ngClass]="
+                  currentUser.id == m.senderId ? 'text-white' : 'text-dark'
+                "
+              >
+                {{ m.message }}
+              </div>
+              <div
+                class="fs-7"
+                [ngClass]="
+                  currentUser.id == m.senderId
+                    ? 'float-end text-white-50'
+                    : 'float-start text-black-50'
+                "
+              ></div>
+            </div>
+            <div *ngIf="currentUser.id == m.senderId">
+              <i
+                (click)="onDeleteMessage(m.messageId)"
+                class="bi bi-trash text-danger p-2 cursor-pointer float-end opacity-hover"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gui tin nhan -->
+        <div>
+          <form (submit)="onSendMessage()">
+            <div class="d-flex px-4 py-2 bg-body-secondary">
+              <input
+                class="form-control"
+                type="text"
+                name="message"
+                placeholder="Type a message"
+                [(ngModel)]="message"
+              />
+              <button type="submit" class="btn ms-2">
+                <i class="bx bx-send"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Chat Modal -->
+<div class="modal fade" id="deleteChatModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          Delete conversation
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Are you sure about to delete this conversation?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button
+          (click)="onDeleteConversation()"
+          type="button"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

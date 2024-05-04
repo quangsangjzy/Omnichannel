@@ -6,7 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FacebookService } from './service/facebookservice.service';
 import { MatDialogModule } from '@angular/material/dialog';
-import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
+// import { ChatService } from './components/main/chat/chat.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     MainComponent,
     ReactiveFormsModule,
     MatDialogModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
   ],
   providers: [],
 })

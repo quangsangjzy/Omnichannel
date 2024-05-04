@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
-import { ChatComponent } from './chat/chat.component';
+import { ChatPageComponent } from './chatpage/chatpage.component';
 import { AuthService } from '../auth/authservice.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { AuthService } from '../auth/authservice.service';
   standalone: true,
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
-  imports: [SidebarComponent, HeaderComponent, ChatComponent],
+  imports: [SidebarComponent, HeaderComponent, ChatPageComponent],
 })
 export class MainComponent implements OnInit {
   constructor(private authService: AuthService) {}
